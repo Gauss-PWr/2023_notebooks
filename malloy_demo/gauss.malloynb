@@ -1,0 +1,32 @@
+[
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "source: carriers is table('duckdb:data/carriers.parquet') \r\nsource: flights is table('duckdb:data/flights.parquet') {\r\n    measure:\r\n        flights_count is count()\r\n        average_distance is distance.avg()\r\n    \r\n    join_one: carriers on carrier=carriers.code\r\n\r\n    query: by_carrier is {\r\n        group_by: carriers.nickname\r\n        aggregate: flights_count, average_distance\r\n    }\r\n\r\n    query: by_month_line_chart is {\r\n        group_by: dep_month is dep_time.month\r\n        aggregate: flights_count\r\n        order_by: dep_month\r\n    }\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "query: flights -> by_carrier",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "query: flights -> by_month_line_chart",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "query: flights -> {\r\n    group_by: destination\r\n    aggregate: flights_count, average_distance\r\n    nest: by_carrier\r\n    nest: by_month_line_chart\r\n    order_by: destination\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "",
+    "metadata": {}
+  }
+]

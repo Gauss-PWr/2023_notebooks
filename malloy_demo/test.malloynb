@@ -1,0 +1,20 @@
+[
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "source: carriers is table('duckdb:data/carriers.parquet') \r\nsource: airports is table('duckdb:data/airports.parquet')\r\nsource: flights is table('duckdb:data/flights.parquet') {\r\n    measure: \r\n        flight_count is count()\r\n    join_one: carriers on carrier=carriers.code\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "query: flights -> {\r\n    group_by: carrier\r\n    aggregate: flight_count\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "malloy",
+    "value": "",
+    "metadata": {}
+  }
+]

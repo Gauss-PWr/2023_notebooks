@@ -1,0 +1,3 @@
+source: airports is table('duckdb:data/airports.parquet') + {
+
+}
